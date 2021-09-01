@@ -1,0 +1,11 @@
+{
+  "name": "spanzuratoarea",
+  "version": "1.0.0",
+  "description": "Hangman game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ALexandru Tomescu",
+  "license": "ISC"
+}
