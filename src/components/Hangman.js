@@ -1,3 +1,4 @@
+import React from 'react';
 import { makeStyles } from "@material-ui/styles";
 
 const color = 'red';
@@ -20,15 +21,17 @@ const useStyles = makeStyles({
         margin: '0 auto',
     },
     leftArm: {
-        width: '5px',
-        backgroundColor: color,
-        height: '40px',
-        transform: 'skewY(-11deg)'
+    },
+    rightArm: {
+    },
+    leftFoot: {
+    },
+    rightFoot: {
     }
 });
 
-export default function Hangman(props) {
-    const { numberWrongLetters } = props;
+const Hangman = React.memo((props) => {
+    const { numberWrongLetters, onGameFinished } = props;
     const classes = useStyles({});
 
     const head = () => {
@@ -40,25 +43,31 @@ export default function Hangman(props) {
     }
 
     const leftArm = () => {
-        return <div className={classes.leftArm}></div>
+        return <div className={classes.leftArm}>LEFT ARM</div>
     }
 
     const rightArm = () => {
-        return <div className={classes.rightArm}></div>
+        return <div className={classes.rightArm}>RIGHT ARM</div>
     }
 
     const leftFoot = () => {
-        return <div className={classes.leftFoot}></div>
+        return <div className={classes.leftFoot}>LEFT FOOT</div>
     }
 
     const rightFoot = () => {
-        return <div className={classes.rightFoot}></div>
+        return <div className={classes.rightFoot}>RIGHT FOOT</div>
     }
 
     const bodyElements = [head, body, leftArm, rightArm, leftFoot, rightFoot]
     const bodyElementsToRender = bodyElements.slice(0, numberWrongLetters);
+
+    if (numberWrongLetters === bodyElements.length) {
+        onGameFinished();
+    }
+
     return <div className={classes.root}>
-        {bodyElementsToRender.map(bE => bE())}
-        {bodyElements.map(bE => bE())}
+        {bodyElementsToRender.map((bE, i) => <span key={i}>{bE()}</span>)}
     </div>
-}
+})
+
+export default Hangman
